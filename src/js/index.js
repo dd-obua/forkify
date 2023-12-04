@@ -1,5 +1,7 @@
 import icons from '../images/icons.svg';
 import '../styles/main.scss';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 const recipeContainer = document.querySelector('.recipe');
 
