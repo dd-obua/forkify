@@ -13,7 +13,7 @@ module.exports = {
   mode: isProduction ? 'production' : 'development',
 
   entry: {
-    bundle: path.resolve(__dirname, './src/js/index.js'),
+    bundle: path.resolve(__dirname, './src/js/controller.js'),
   },
 
   devtool: isProduction ? false : 'source-map',
