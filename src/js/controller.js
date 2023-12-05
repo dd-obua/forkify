@@ -1,12 +1,14 @@
-import * as model from './model.js';
-import recipeView from './views/recipeView.js';
-
 import '../styles/main.scss';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
+import icons from '../images/icons.svg';
+import * as model from './model.js';
+import recipeView from './views/recipeView.js';
+
 const controlRecipes = async () => {
   try {
+    // Get id
     const id = window.location.hash.slice(1);
     if (!id) return;
 
@@ -23,4 +25,4 @@ const controlRecipes = async () => {
   }
 };
 
-['hashchange', 'load'].forEach((event) => window.addEventListener(event, controlRecipes));
+['load', 'hashchange'].forEach((event) => window.addEventListener(event, controlRecipes));
