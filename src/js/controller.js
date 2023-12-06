@@ -1,10 +1,10 @@
-import * as model from './model.js';
-import recipeView from './views/recipeView.js';
-import searchView from './views/searchView.js';
-
 import '../styles/main.scss';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+
+import * as model from './model.js';
+import recipeView from './views/recipeView.js';
+import searchView from './views/searchView.js';
 
 const controlRecipes = async () => {
   try {
