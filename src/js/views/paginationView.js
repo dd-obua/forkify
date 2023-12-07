@@ -10,16 +10,49 @@ class PaginationView extends View {
     const currentPage = this._data.page;
 
     // On page 1 and there are other pages
-    if (currentPage === 1 && numPages > 1) return `Page 1 and others.`;
+    if (currentPage === 1 && numPages > 1) {
+      return `
+        <button class="btn--inline pagination__btn--next">
+          <span>Page ${currentPage + 1}</span>
+          <svg class="search__icon">
+            <use href="${icons}#icon-arrow-right"></use>
+          </svg>
+        </button>
+      `;
+    }
 
     // On the last page
-    if (currentPage === numPages && numPages > 1) return `Last page.`;
+    if (currentPage === numPages && numPages > 1) {
+      return `
+        <button class="btn--inline pagination__btn--prev">
+          <svg class="search__icon">
+            <use href="${icons}#icon-arrow-left"></use>
+          </svg>
+          <span>Page ${currentPage - 1}</span>
+        </button>
+      `;
+    }
 
     // On any other page
-    if (currentPage < numPages) return `Any other page.`;
+    if (currentPage < numPages) {
+      return `
+        <button class="btn--inline pagination__btn--prev">
+          <svg class="search__icon">
+            <use href="${icons}#icon-arrow-left"></use>
+          </svg>
+          <span>Page ${currentPage - 1}</span>
+        </button>
+        <button class="btn--inline pagination__btn--next">
+          <span>Page ${currentPage + 1}</span>
+          <svg class="search__icon">
+            <use href="${icons}#icon-arrow-right"></use>
+          </svg>
+        </button>
+      `;
+    }
 
     // On page 1 and there are no other pages
-    return `Only one page.`;
+    return '';
   }
 }
 
