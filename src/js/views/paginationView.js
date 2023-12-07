@@ -1,6 +1,5 @@
 import View from './view';
 import icons from '../../images/icons.svg';
-import { RESULTS_PER_PAGE } from '../config';
 
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
@@ -34,7 +33,7 @@ class PaginationView extends View {
     }
 
     // On any other page
-    if (currentPage < numPages) {
+    if (currentPage < numPages && currentPage !== 1) {
       return `
         <button class="btn--inline pagination__btn--prev">
           <svg class="search__icon">
