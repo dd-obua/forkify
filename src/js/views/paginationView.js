@@ -8,7 +8,8 @@ class PaginationView extends View {
     this._parentElement.addEventListener('click', (event) => {
       const btn = event.target.closest('button');
       if (!btn) return;
-      handler();
+      const goToPage = +btn.dataset.goto;
+      handler(goToPage);
     });
   }
 
