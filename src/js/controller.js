@@ -48,9 +48,14 @@ const controlSearchResults = async () => {
   }
 };
 
+const controlPagination = () => {
+  console.log('Pagination and pagination view.');
+};
+
 const init = () => {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 };
 
 init();

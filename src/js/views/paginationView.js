@@ -4,6 +4,14 @@ import icons from '../../images/icons.svg';
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
 
+  addHandlerClick(handler) {
+    this._parentElement.addEventListener('click', (event) => {
+      const btn = event.target.closest('button');
+      if (!btn) return;
+      handler();
+    });
+  }
+
   _generateMarkup() {
     const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
     const currentPage = this._data.page;
@@ -11,8 +19,8 @@ class PaginationView extends View {
     // On page 1 and there are other pages
     if (currentPage === 1 && numPages > 1) {
       return `
-        <button class="btn--inline pagination__btn--next">
-          <span>Page ${currentPage + 1}</span>
+        <button data-goto="${currentPage + 1}" class="btn--inline pagination__btn--next">
+          <span>Page ${currentPage + 1}</span>  
           <svg class="search__icon">
             <use href="${icons}#icon-arrow-right"></use>
           </svg>
@@ -23,7 +31,7 @@ class PaginationView extends View {
     // On the last page
     if (currentPage === numPages && numPages > 1) {
       return `
-        <button class="btn--inline pagination__btn--prev">
+        <button data-goto="${currentPage - 1}" class="btn--inline pagination__btn--prev">
           <svg class="search__icon">
             <use href="${icons}#icon-arrow-left"></use>
           </svg>
@@ -35,13 +43,13 @@ class PaginationView extends View {
     // On any other page
     if (currentPage < numPages && currentPage !== 1) {
       return `
-        <button class="btn--inline pagination__btn--prev">
+        <button data-goto="${currentPage - 1}" class="btn--inline pagination__btn--prev">
           <svg class="search__icon">
             <use href="${icons}#icon-arrow-left"></use>
           </svg>
           <span>Page ${currentPage - 1}</span>
         </button>
-        <button class="btn--inline pagination__btn--next">
+        <button data-goto="${currentPage + 1}" class="btn--inline pagination__btn--next">
           <span>Page ${currentPage + 1}</span>
           <svg class="search__icon">
             <use href="${icons}#icon-arrow-right"></use>
