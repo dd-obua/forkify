@@ -21,7 +21,7 @@ export default class View {
       const origEl = originalElements[i];
 
       // Update changed text
-      if (!newEl.isEqualNode(origEl) && newEl?.firstChild.nodeValue.trim() !== '')
+      if (!newEl.isEqualNode(origEl) && newEl.firstChild?.nodeValue.trim() !== '')
         origEl.textContent = newEl.textContent;
 
       // Update changed attributes
