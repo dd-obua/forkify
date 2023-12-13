@@ -88,6 +88,12 @@ const controlRenderBookmarks = () => {
   bookmarksView.render(model.state.bookmarks);
 };
 
+const controlAddRecipe = async (newRecipe) => {
+  console.log(newRecipe);
+  // Upload the new recipe data
+  
+};
+
 const init = () => {
   bookmarksView.addHandlerRender(controlRenderBookmarks);
   recipeView.addHandlerRender(controlRecipes);
@@ -95,6 +101,7 @@ const init = () => {
   recipeView.addHandlerBookmarks(controlBookmarks);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
+  addRecipeView.addHandlerUpload(controlAddRecipe);
 };
 
 init();
