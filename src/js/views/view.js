@@ -71,7 +71,7 @@ export default class View {
     const markup = `
       <div class="message">
         <div>
-          <svg>
+          <svg> 
             <use href="${icons}#icon-smile"></use>
           </svg>
         </div>
