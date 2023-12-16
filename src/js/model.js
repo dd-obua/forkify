@@ -12,21 +12,25 @@ export const state = {
   bookmarks: [],
 };
 
+const createRecipeObject = (data) => {
+  const { recipe } = data.data;
+  return {
+    id: recipe.id,
+    title: recipe.title,
+    publisher: recipe.publisher,
+    sourceUrl: recipe.source_url,
+    image: recipe.image_url,
+    servings: recipe.servings,
+    cookingTime: recipe.cooking_time,
+    ingredients: recipe.ingredients,
+    ...(recipe.key && { key: recipe.key }),
+  };
+};
+
 export const loadRecipe = async (id) => {
   try {
     const data = await getJSON(`${API_URL}/${id}`);
-    const { recipe } = data.data;
-    state.recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      sourceUrl: recipe.source_url,
-      image: recipe.image_url,
-      servings: recipe.servings,
-      cookingTime: recipe.cooking_time,
-      ingredients: recipe.ingredients,
-    };
-
+    state.recipe = createRecipeObject(data);
     state.recipe.bookmarked = state.bookmarks.some((bookmark) => bookmark.id === id);
   } catch (error) {
     console.error(error);
@@ -107,7 +111,6 @@ export const uploadRecipe = async (newRecipe) => {
     // Tranform data into a format consumable by the API
     const ingredients = Object.entries(newRecipe)
       .filter((entry) => entry[0].startsWith('ingredient') && entry[1] !== '')
-
       .map((ingred) => {
         const ingredArr = ingred[1].replaceAll(' ', '').split(',');
         if (ingredArr.length < 3)
@@ -125,9 +128,9 @@ export const uploadRecipe = async (newRecipe) => {
       servings: +newRecipe.servings,
       ingredients,
     };
-    console.log('Recipe payload:', recipe);
     const data = await sendJSON(`${API_URL}?key=${KEY}`, recipe);
-    console.log('API response:', data);
+    state.recipe = createRecipeObject(data);
+    addBookmark(state.recipe);
   } catch (error) {
     throw error;
   }

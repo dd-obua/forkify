@@ -10,6 +10,7 @@ import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
 import { uploadRecipe } from './model.js';
+import { MODAL_CLOSE_SECONDS } from './config.js';
 
 const controlRecipes = async () => {
   try {
@@ -93,6 +94,15 @@ const controlAddRecipe = async (newRecipe) => {
   try {
     // Upload the new recipe data
     await model.uploadRecipe(newRecipe);
+
+    // Render recipe
+    recipeView.render(model.state.recipe);
+
+    // Success message
+    addRecipeView.renderMessage();
+
+    // Close form
+    setTimeout(() => addRecipeView.toggleWindow(), MODAL_CLOSE_SECONDS * 1000);
   } catch (error) {
     addRecipeView.renderError(error.message);
   }
