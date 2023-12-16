@@ -49,6 +49,7 @@ export const loadSearchResults = async (query) => {
         title: recipe.title,
         publisher: recipe.publisher,
         image: recipe.image_url,
+        ...(recipe.key && { key: recipe.key }),
       };
     });
 
