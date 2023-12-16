@@ -1,5 +1,5 @@
 import { API_URL, RESULTS_PER_PAGE, KEY } from './config.js';
-import { getJSON, sendJSON } from './helpers.js';
+import { AJAX } from './helpers.js';
 
 export const state = {
   recipe: {},
@@ -29,7 +29,7 @@ const createRecipeObject = (data) => {
 
 export const loadRecipe = async (id) => {
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await AJAX(`${API_URL}/${id}`);
     state.recipe = createRecipeObject(data);
     state.recipe.bookmarked = state.bookmarks.some((bookmark) => bookmark.id === id);
   } catch (error) {
@@ -41,7 +41,7 @@ export const loadRecipe = async (id) => {
 export const loadSearchResults = async (query) => {
   try {
     state.search.query = query;
-    const data = await getJSON(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}`);
 
     state.search.results = data.data.recipes.map((recipe) => {
       return {
@@ -74,9 +74,7 @@ export const updateServings = (newServings) => {
   state.recipe.servings = newServings;
 };
 
-const persistBookmarks = () => {
-  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
-};
+const persistBookmarks = () => localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
 
 export const addBookmark = (recipe) => {
   // Add bookmark
@@ -128,7 +126,7 @@ export const uploadRecipe = async (newRecipe) => {
       servings: +newRecipe.servings,
       ingredients,
     };
-    const data = await sendJSON(`${API_URL}?key=${KEY}`, recipe);
+    const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
     state.recipe = createRecipeObject(data);
     addBookmark(state.recipe);
   } catch (error) {
