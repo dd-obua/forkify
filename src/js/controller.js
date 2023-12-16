@@ -9,6 +9,7 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
+import { uploadRecipe } from './model.js';
 
 const controlRecipes = async () => {
   try {
@@ -89,9 +90,12 @@ const controlRenderBookmarks = () => {
 };
 
 const controlAddRecipe = async (newRecipe) => {
-  console.log(newRecipe);
-  // Upload the new recipe data
-  
+  try {
+    // Upload the new recipe data
+    await model.uploadRecipe(newRecipe);
+  } catch (error) {
+    addRecipeView.renderError(error.message);
+  }
 };
 
 const init = () => {

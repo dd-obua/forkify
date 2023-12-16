@@ -101,3 +101,22 @@ const init = () => {
 };
 
 init();
+
+export const uploadRecipe = async (newRecipe) => {
+  try {
+    // Tranform data into a format consumable by the API
+    const ingredients = Object.entries(newRecipe)
+      .filter((entry) => entry[0].startsWith('ingredient') && entry[1] !== '')
+
+      .map((ingred) => {
+        const ingredArr = ingred[1].replaceAll(' ', '').split(',');
+        if (ingredArr.length < 3)
+          throw new Error('Wrong ingredient format. Please use the correct one :)');
+        const [quantity, unit, description] = ingredArr;
+        return { quantity: quantity ? +quantity : null, unit, description };
+      });
+    console.log(ingredients);
+  } catch (error) {
+    throw error;
+  }
+};
