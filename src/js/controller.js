@@ -110,6 +110,7 @@ const controlAddRecipe = async (newRecipe) => {
 
     // Close form
     setTimeout(() => addRecipeView.toggleWindow(), MODAL_CLOSE_SECONDS * 1000);
+    setTimeout(() => location.reload(), 1000);
   } catch (error) {
     addRecipeView.renderError(error.message);
   }

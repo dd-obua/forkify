@@ -3,11 +3,11 @@ import icons from '../../images/icons.svg';
 
 class AddRecipeView extends View {
   _parentElement = document.querySelector('.upload');
-  _message = 'Recipe was successfully uploaded.';
   _window = document.querySelector('.add-recipe-window');
   _overlay = document.querySelector('.overlay');
   _btnOpen = document.querySelector('.nav__btn--add-recipe');
   _btnClose = document.querySelector('.btn--close-modal');
+  _message = 'Recipe was successfully uploaded.';
 
   constructor() {
     super();
@@ -35,7 +35,6 @@ class AddRecipeView extends View {
       const dataArr = [...new FormData(this._parentElement)];
       const data = Object.fromEntries(dataArr);
       handler(data);
-      // this._parentElement.querySelectorAll('input').forEach((field) => (field.value = ''));
     });
   }
 }
